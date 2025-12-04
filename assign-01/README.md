@@ -1,149 +1,103 @@
-````
 # AWS Assessment – Question 1  
 ## Networking & Subnetting (AWS VPC Setup)
 
-This assignment implements a basic AWS network architecture using one VPC, two public subnets, two private subnets, an Internet Gateway (IGW), a NAT Gateway, and public/private route tables. All resources are configured exactly as per requirements.
+This project implements a basic AWS network infrastructure using VPC, public/private subnets, an Internet Gateway, a NAT Gateway, and route tables.  
+The configuration is designed using AWS best practices and fully automated using Terraform.
 
 ---
 
-## 📌 1. Brief Explanation (Approach & Design)
+# 📌 1. Overview / Approach (4–6 Lines)
 
-I created a VPC with CIDR `10.0.0.0/16`, which provides a large address space suitable for subnetting.  
-Then, I divided it into four `/24` subnets:
-
-- **Two public subnets** (10.0.1.0/24, 10.0.2.0/24) for internet-facing components  
-- **Two private subnets** (10.0.3.0/24, 10.0.4.0/24) for internal services  
-
-An Internet Gateway was attached for public subnets, and a NAT Gateway in Public Subnet 1 enables private subnets to access the internet securely.  
-Separate route tables were configured for public and private networks to control routing behavior.
+I created a VPC with CIDR `10.0.0.0/16`, allowing a scalable private IP range.  
+The address space was divided into **two public** and **two private subnets**, each `/24`, spread across different Availability Zones for high availability.  
+An **Internet Gateway** provides internet access to public subnets, while a **NAT Gateway** in Public Subnet 1 enables secure outbound access for instances in private subnets.  
+Separate **public and private route tables** ensure proper traffic routing.  
+All resources were additionally provisioned using Terraform for repeatability and automation.
 
 ---
 
-## 📌 2. AWS Screenshots
+# 📌 2. Architecture Diagram  
+*(Add a diagram screenshot here if you want; optional but recommended)*
 
-### 🔹 VPC
+![Architecture Diagram](screenshots/architecture.png)
+
+---
+
+# 📌 3. AWS Screenshots (Evidence)
+
+### 🔹 **VPC**
 ![VPC Screenshot](screenshots/image.png)
 
-### 🔹 Subnets
-![Subnets](screenshots/image3.png)
+### 🔹 **Subnets**
+![Subnets](screenshots/image2.png)
 
-### 🔹 Internet Gateway
-![IGW](screenshots/image4.png)
+### 🔹 **Internet Gateway**
+![Internet Gateway](screenshots/image4.png)
 
-### 🔹 NAT Gateway
-![NAT](screenshots/image5.png)
+### 🔹 **NAT Gateway**
+![NAT Gateway](screenshots/image5.png)
 
-### 🔹 Route Tables
+### 🔹 **Route Tables**
 #### Public Route Table
-![Public Route Table](screenshots/public-rt.png)
+![Public Route Table](screenshots/image3.png)
 
 #### Private Route Table
-![Private Route Table](screenshots/private-rt.png)
-
-> Replace each file path under `screenshots/` with your actual screenshot file names.
+![Private Route Table](screenshots/image2.png)
 
 ---
 
-## 📌 3. Terraform Code
-
-The Terraform file used to deploy the entire setup is included here:  
-➡️ **`question1_vpc_setup/main.tf`**
-
-This file contains:
-
-✔ VPC  
-✔ Public Subnets  
-✔ Private Subnets  
-✔ Internet Gateway  
-✔ NAT Gateway  
-✔ Route Tables  
-✔ Associations  
-
-All resource names match the AWS console:  
-`my-vpc`, `my-subnet-1`, `my-private-subnet-1`, `my-nat-gw`, etc.
-
----
-
-## 📌 4. CIDR Block Justification
+# 📌 4. CIDR Block Design & Justification
 
 | Component | CIDR Range | Reason |
 |----------|------------|--------|
-| **VPC** | `10.0.0.0/16` | Large private IP range with easy subnetting |
-| **Public Subnet 1** | `10.0.1.0/24` | `/24` provides 256 IPs, isolated public tier |
-| **Public Subnet 2** | `10.0.2.0/24` | High availability across AZs |
-| **Private Subnet 1** | `10.0.3.0/24` | Internal workloads, no public exposure |
-| **Private Subnet 2** | `10.0.4.0/24` | Redundancy for internal services |
+| **VPC** | `10.0.0.0/16` | Large address space allowing subnet expansion |
+| **Public Subnet 1** | `10.0.1.0/24` | Dedicated public zone for internet-facing resources |
+| **Public Subnet 2** | `10.0.2.0/24` | AZ redundancy for public workloads |
+| **Private Subnet 1** | `10.0.3.0/24` | Application tier without public exposure |
+| **Private Subnet 2** | `10.0.4.0/24` | Redundant private tier for backend services |
 
-This structure follows AWS best practices:  
-- Public subnets for internet-facing resources  
-- Private subnets for application/database layers  
-- NAT Gateway for secure outbound access  
+This follows AWS recommended practices of designing **isolated public & private layers** with NAT-based secure outbound access.
 
 ---
 
-## 📌 5. How to Use the Terraform Code
+# 📌 5. Terraform Code Location  
+The complete Terraform configuration is included here:
+
+➡️ **`question1_vpc_setup/main.tf`**
+
+It provisions:
+
+- VPC  
+- Public Subnets  
+- Private Subnets  
+- Internet Gateway  
+- NAT Gateway + Elastic IP  
+- Public Route Table + associations  
+- Private Route Table + associations  
+
+All resource names match your AWS console setup (e.g., `my-vpc`, `my-subnet-1`, `my-nat-gw`, etc.).
+
+---
+
+# 📌 6. How to Deploy Using Terraform
 
 ### **Initialize Terraform**
 ```bash
 terraform init
-````
+```
 
-### **Preview Changes**
-
-```bash
+### **Preview Resources Before Deployment**
+```
 terraform plan
 ```
 
-### **Apply Infrastructure**
-
-```bash
+### **Create the AWS Infrastructure**
+```
 terraform apply
+
 ```
 
-To destroy resources after submission (as required):
-
-```bash
+### **Destroy All Resources (Required After Assessment)**
+```
 terraform destroy
 ```
-
----
-
-## 📁 Folder Structure
-
-```
-Abeer_Srivastava_AWS_Assessment/
-│
-├── question1_vpc_setup/
-│   ├── main.tf
-│   └── screenshots/
-│        ├── vpc.png
-│        ├── subnets.png
-│        ├── igw.png
-│        ├── nat.png
-│        ├── public-rt.png
-│        └── private-rt.png
-│
-└── README.md
-```
-
----
-
-## ✅ Assignment Completed
-
-Your VPC, Subnets, IGW, NAT Gateway, Route Tables, and Terraform Code are fully configured and documented.
-
-```
-
----
-
-# 🎉 Your README is ready!
-
-Now you only need to:
-
-1. Create a **screenshots folder** inside your repo  
-2. Upload all screenshot PNGs  
-3. Update the image paths in README.md  
-4. Commit + Push
-
----
-
