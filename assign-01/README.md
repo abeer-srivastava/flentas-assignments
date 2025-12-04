@@ -14,16 +14,8 @@ An **Internet Gateway** provides internet access to public subnets, while a **NA
 Separate **public and private route tables** ensure proper traffic routing.  
 All resources were additionally provisioned using Terraform for repeatability and automation.
 
----
 
-# 📌 2. Architecture Diagram  
-*(Add a diagram screenshot here if you want; optional but recommended)*
-
-![Architecture Diagram](screenshots/architecture.png)
-
----
-
-# 📌 3. AWS Screenshots (Evidence)
+# 📌 2. AWS Screenshots (Evidence)
 
 ### 🔹 **VPC**
 ![VPC Screenshot](screenshots/image.png)
@@ -46,7 +38,7 @@ All resources were additionally provisioned using Terraform for repeatability an
 
 ---
 
-# 📌 4. CIDR Block Design & Justification
+# 📌 3. CIDR Block Design & Justification
 
 | Component | CIDR Range | Reason |
 |----------|------------|--------|
@@ -60,7 +52,7 @@ This follows AWS recommended practices of designing **isolated public & private 
 
 ---
 
-# 📌 5. Terraform Code Location  
+# 📌 4. Terraform Code Location  
 The complete Terraform configuration is included here:
 
 ➡️ **`question1_vpc_setup/main.tf`**
@@ -79,7 +71,7 @@ All resource names match your AWS console setup (e.g., `my-vpc`, `my-subnet-1`, 
 
 ---
 
-# 📌 6. How to Deploy Using Terraform
+# 📌 5. How to Deploy Using Terraform
 
 ### **Initialize Terraform**
 ```bash
