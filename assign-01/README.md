@@ -22,16 +22,16 @@ Separate route tables were configured for public and private networks to control
 ## 📌 2. AWS Screenshots
 
 ### 🔹 VPC
-![VPC Screenshot](screenshots/vpc.png)
+![VPC Screenshot](screenshots/image.png)
 
 ### 🔹 Subnets
-![Subnets](screenshots/subnets.png)
+![Subnets](screenshots/image3.png)
 
 ### 🔹 Internet Gateway
-![IGW](screenshots/igw.png)
+![IGW](screenshots/image4.png)
 
 ### 🔹 NAT Gateway
-![NAT](screenshots/nat.png)
+![NAT](screenshots/image5.png)
 
 ### 🔹 Route Tables
 #### Public Route Table
