@@ -6,7 +6,7 @@ The configuration is designed using AWS best practices and fully automated using
 
 ---
 
-# 📌 1. Overview / Approach (4–6 Lines)
+# 📌 1. Overview / Approach
 
 I created a VPC with CIDR `10.0.0.0/16`, allowing a scalable private IP range.  
 The address space was divided into **two public** and **two private subnets**, each `/24`, spread across different Availability Zones for high availability.  
